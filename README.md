@@ -10,7 +10,7 @@ An example of the manual steps required to convert a loopback generated scaffold
   * Next, `Reference > Project layout reference > server directory > config.json` (http://docs.strongloop.com/display/public/LB/config.json) suggests:
     * Edit the `<project-name>/server/config.json` file because `restApiRoot` controls the `Root URI of REST API`
     * This worked.
- 2. Change `node_modules/parse/build/parse-latest.js` to point to localhost for settign up simple tests that will ensure that the Parse JS client will work with our parse-rest-conformant API.
+ 2. Change `node_modules/parse/build/parse-latest.js` to point at `localhost:3000` for setting up tests that will ensure that the Parse JS client will work with our parse-rest-conformant API.
 
     ```
     // Set the server for Parse to talk to.
@@ -18,4 +18,27 @@ An example of the manual steps required to convert a loopback generated scaffold
     Parse.serverURL = "http://localhost:3000";
     ```
 
- 3. tbd
+ 3. Add a test to see if we can create users w/ parse js client:
+
+    ```
+var Parse = require('parse').Parse;
+Parse.initialize('parseAppId','parseJsKey','parseMasterKey'); // junk values, not relevant
+
+describe('User.create', function() {
+  it('Create a new user', function (done) {
+    var parseUser = new Parse.User();
+    parseUser.set('username', 'a@a.com');
+    parseUser.set('password', 'a@a.com');
+    parseUser.set('email', 'a@a.com');
+
+    return parseUser.signUp(null, {useMasterKey: true})
+      .then(function(createdUserObject) {
+        console.log('Created username: ' + createdUserObject.get('username'));
+        assert(createdUserObject.get('username'));
+        done();
+      });
+  });
+});
+    ```
+
+ 4. tbd
