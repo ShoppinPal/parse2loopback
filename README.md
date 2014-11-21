@@ -36,6 +36,9 @@ An example of the manual steps required to convert a loopback generated scaffold
             console.log('Created username: ' + createdUserObject.get('username'));
             assert(createdUserObject.get('username'));
             done();
+          },
+          function(error){
+            done(new Error(JSON.stringify(error,null,2)));
           });
       });
     });
