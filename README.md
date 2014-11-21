@@ -21,24 +21,24 @@ An example of the manual steps required to convert a loopback generated scaffold
  3. Add a test to see if we can create users w/ parse js client:
 
     ```
-var Parse = require('parse').Parse;
-Parse.initialize('parseAppId','parseJsKey','parseMasterKey'); // junk values, not relevant
-
-describe('User.create', function() {
-  it('Create a new user', function (done) {
-    var parseUser = new Parse.User();
-    parseUser.set('username', 'a@a.com');
-    parseUser.set('password', 'a@a.com');
-    parseUser.set('email', 'a@a.com');
-
-    return parseUser.signUp(null, {useMasterKey: true})
-      .then(function(createdUserObject) {
-        console.log('Created username: ' + createdUserObject.get('username'));
-        assert(createdUserObject.get('username'));
-        done();
+    var Parse = require('parse').Parse;
+    Parse.initialize('parseAppId','parseJsKey','parseMasterKey'); // junk values, not relevant
+    
+    describe('User.create', function() {
+      it('Create a new user', function (done) {
+        var parseUser = new Parse.User();
+        parseUser.set('username', 'a@a.com');
+        parseUser.set('password', 'a@a.com');
+        parseUser.set('email', 'a@a.com');
+    
+        return parseUser.signUp(null, {useMasterKey: true})
+          .then(function(createdUserObject) {
+            console.log('Created username: ' + createdUserObject.get('username'));
+            assert(createdUserObject.get('username'));
+            done();
+          });
       });
-  });
-});
+    });
     ```
 
  4. tbd
