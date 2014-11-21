@@ -19,12 +19,16 @@ describe('User.create', function() {
     parseUser.set('username', 'a@a.com');
     parseUser.set('password', 'a@a.com');
     parseUser.set('email', 'a@a.com');
+    //console.log(parseUser);
 
     return parseUser.signUp(null, {useMasterKey: true})
       .then(function(createdUserObject) {
         console.log('Created username: ' + createdUserObject.get('username'));
         assert(createdUserObject.get('username'));
         done();
+      },
+      function(error){
+        done(new Error(JSON.stringify(error,null,2)));
       });
   });
 });
