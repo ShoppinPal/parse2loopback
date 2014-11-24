@@ -44,4 +44,10 @@ An example of the manual steps required to convert a loopback generated scaffold
     });
     ```
 
- 4. tbd
+ 4. Parse uses `text/plain` in order to
+
+    > // avoid pre-flight.
+
+    But we need to use `application/json` in order to work with Loopback.
+
+ 5. TBD
