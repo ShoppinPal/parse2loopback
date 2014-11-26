@@ -1,6 +1,8 @@
-var loopback = require('loopback');
+//var loopback = require('loopback');
+//var helpers = require('../');
+var assert = require('assert');
 
-// edited local Parse v1.3.0
+// edited ./node_modules/parse/build/parse-latest.js (local file for Parse v1.3.0)
 // line # 1334: Parse.serverURL = "https://api.parse.com";
 // replaced with
 // Parse.serverURL = "http://localhost:3000";
@@ -9,16 +11,13 @@ Parse.initialize('parseAppId','parseJsKey','parseMasterKey'); // junk values, no
 
 describe('User.create', function() {
   it('Create a new user', function (done) {
-    /*User.create({email: 'f@b.com', password: 'bar'}, function (err, user) {
-      assert(!err);
-      assert(user.id);
-      assert(user.email);
-      done();
-    });*/
     var parseUser = new Parse.User();
-    parseUser.set('username', 'a@a.com');
-    parseUser.set('password', 'a@a.com');
-    parseUser.set('email', 'a@a.com');
+    var now = Date.now();
+    var unique = 'user_'+now+'@test.com';
+    console.log(unique);
+    parseUser.set('username', unique);
+    parseUser.set('password', unique);
+    parseUser.set('email', unique);
     //console.log(parseUser);
 
     return parseUser.signUp(null, {useMasterKey: true})

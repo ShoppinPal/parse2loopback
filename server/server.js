@@ -10,6 +10,14 @@ app.use(loopback.favicon());
 app.use(loopback.compress());
 
 // -- Add your pre-processing middleware here --
+app.use(function overrideContentType(req, res, next) {
+  if ( /^text\/plain/.test(req.headers['content-type']) &&
+       /^Parse/.test(req.headers['user-agent']) )
+  {
+    req.headers['content-type'] = 'application/json';
+  }
+  next();
+});
 
 // boot scripts mount components like REST API
 boot(app, __dirname);
