@@ -48,6 +48,17 @@ An example of the manual steps required to convert a loopback generated scaffold
 
     > // avoid pre-flight.
 
-    But we need to use `application/json` in order to work with Loopback.
+    But we need to use `application/json` in order to work with Loopback. So lets add custom middleware to address this.
+
+    ```
+    app.use(function overrideContentType(req, res, next) {
+     if ( /^text\/plain/.test(req.headers['content-type']) &&
+          /^Parse/.test(req.headers['user-agent']) )
+     {
+       req.headers['content-type'] = 'application/json';
+     }
+     next();
+    });
+    ```
 
  5. TBD
